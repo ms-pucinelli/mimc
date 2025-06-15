@@ -1,0 +1,14 @@
+https://wireframe.cc/xWdPSv - wireframe v1
+
+Amorzinho challenge: Tradução - escolher a linguagem de acordo com a bandeira selecionada.
+escolher fontes
+
+se imc = peso
+18 = x
+
+minimunIMC = (peso x 18) / imc
+
+se imc = peso
+24.99 = x
+
+MaximunIMC = (peso X 24.99) / imc 

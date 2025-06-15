@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Pamela Gomes">
+    <meta name="description" content="Body Mass Index Project created by Pamela Gomes">
+    <title>Body Mass Index Program</title>
+    <link rel="stylesheet" href="../body-mass-index/styles/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delius&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header class="header-footer">
+        <img src="images/people-happy-logo.png" alt="People Happy">
+        <h1 data-translate-id="header-title"></h1>
+        <div class="dropdown">
+            <button data-translate-id="language" id="button-dropdown"></button>
+            <div class="dropdown-content">
+                <button onclick="loadTranslations('EN')">English</button>
+                <button onclick="loadTranslations('PT')">Português</button>
+                <button onclick="loadTranslations('ES')">Español</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="main-div"> <!--div principal-->
+            <div class="form"> <!--div formulário-->
+                <form action="#"> 
+                    <label data-translate-id="main-weight" for="weight"></label>
+                    <input name="weight" type="number" placeholder="kg" >
+                    <label data-translate-id="main-height" for="height"></label>
+                    <input name="height" type="number" placeholder="cm" >
+                    <button data-translate-id="main-calculate" id="button" type="submit"></button>
+                    <p id="daily-water"></p>
+
+                </form>
+            </div>
+            <div class="results">
+                <div id="IMC-results" class=""></div>
+            
+                <div class="result-items-row">
+                    <div class="result-item">
+                        <div class="color-box" id="yellow"></div>
+                        <p data-translate-id="underweight"></p>
+                    </div>
+            
+                    <div class="result-item">
+                        <div class="color-box" id="green"></div>
+                        <p data-translate-id="normalWeight"></p>
+                    </div>
+            
+                    <div class="result-item">
+                        <div class="color-box" id="red"></div>
+                        <p data-translate-id="overweight"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="water"> <!--div da quantidade ideal de água-->
+                <img src="images/people-happy.png"  alt="Happy-People"> <!--imagem-->
+            </div>
+        </div>
+    </main>
+    <footer class="header-footer">
+        <p>&#169; 2025 - Created by Pamela Gomes </p>
+    </footer>
+    <script src="../body-mass-index/scripts/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+:root {
+    --darkBlue: #344C58;
+    --mediumBlue: #53889f;
+    --blue: #a6c8d8;
+    --salmon: #f7e6cc;
+    --sand: #E69F3A;
+    --terracota: #D76B3E;
+    --VerydarkBlue: #233741;
+}
+
+body {
+    min-height: 100vh; /*vh vem de viewport. É a disponibilidade da janela. Aqui digo que ela pode crescer 100% da window view*/
+    margin: 0;
+    display: flex; /* display flex flex direction column disponibiliza grudar o footer e o header no começo e no final*/
+    flex-direction: column;
+}
+
+.header-footer {
+    height: 4em;
+    background-color:var(--blue);
+}
+
+header {
+    font-size: 1.25rem;
+    color: var(--VerydarkBlue);
+    font-family: "Delius", 'Times New Roman';
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-bottom: 1px solid var(--darkBlue);
+}
+
+header h1 {
+    margin: 0;
+}
+
+header img {
+    height: 50px;
+    margin-right: 40px;
+    margin-left: 0;
+}
+
+.dropdown button{
+    color: var(--VerydarkBlue);
+    min-width: 120px;
+    padding: 5px;
+    margin: 3px;
+    margin-bottom: 0;
+    border: 1px solid var(--darkBlue);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.dropdown button:hover {
+    color: white;
+    background-color: var(--darkBlue);
+    border: 1px solid var(--darkBlue);
+}
+.dropdown-content {
+    position: absolute;
+    margin-left: 30px;
+    z-index: 1
+}
+
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+.dropdown:not(:hover) .dropdown-content {
+    display: none;
+}
+.dropdown:hover #button-dropdown {
+    background-color: var(--darkBlue);
+    color: white;
+}
+  
+.dropdown button {
+    font-family:  "Zain", 'Times New Roman';
+    font-size: 1.2rem;
+    padding: 3px;
+    margin-left: 30px;
+    margin-right: auto;
+}
+
+.dropdown-content button {
+    font-family:  "Zain", 'Times New Roman';
+    font-size: 1.2rem;
+    color: var(--VerydarkBlue);
+    min-width: 120px;
+    padding: 3px;
+    margin: auto;
+    border: 1px solid var(--darkBlue);
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+  }
+
+.dropdown-content button:hover {
+    color: white;
+    background-color: var(--sand);
+    border: 1px solid var(--terracota);
+}
+
+main {
+    flex: 1; /*  Esta maneira permite que o main ocupe todo espaco disponivel ao crescer para empurrar o footer para baixo*/
+    background-color: var(--salmon);
+    font-family: "Zain", 'Times New Roman';
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+}
+
+#main-div {
+    border: solid var(--darkBlue) 2px;
+    margin: 25px 200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    background-color: var(--blue);
+    border-radius: 6px;
+}
+
+/* Form*/
+.form {
+    grid-column: 1/5;
+    grid-row: 1/2 ;
+    width: 100%;
+}
+
+.form form {
+    display: grid;
+    grid-template-columns: 200px 10% 10% 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    height: 100%;
+    padding: 0 20px;
+    margin-top: 15px;
+}
+
+.form form label[for="weight"] {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    align-self: center;
+    font-size: 2rem;
+}
+
+.form form label[for="height"] {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    align-self: center;
+    font-size: 2rem;
+}
+
+.form form input[name="weight"] {
+    font-family:  "zian", 'Times New Roman';
+    grid-column: 2/3;
+    grid-row: 1/2;
+    align-self: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--darkBlue);
+    border-radius: 5px;
+    background-color: var(--salmon)
+}
+
+.form form input[name="height"] {
+    font-family:  "zian", 'Times New Roman';
+    grid-column: 2/3;
+    grid-row: 2/3;
+    align-self: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--darkBlue);
+    border-radius: 5px;
+    background-color: var(--salmon)
+}
+
+.form form input::placeholder {
+    color: var(--VerydarkBlue);
+}
+
+#button {
+    color: var(--VerydarkBlue);
+    font-family:  "zian", 'Times New Roman';
+    grid-column: 1/2;
+    grid-row: 3/4;
+    align-self: center;
+    font-size: 1.2rem;
+    padding: 5px 0;
+    margin: 15px 0 40px 0;
+    border: 2px solid var(--darkBlue);
+    border-radius: 5px;
+    background-color: var(--salmon);
+}
+
+#button:hover {
+    color: white;
+    background-color: var(--sand);
+    border: 1px solid var(--terracota);
+}
+
+#daily-water.ready {
+    font-size: 2rem;
+    grid-column: 4/6;
+    grid-row: 2/4;
+    text-align: justify;
+    padding: 20px 30px 0 30px;
+    border: 1px solid var(--darkBlue);
+    background-color: #f7e6cc;
+    border-radius: 4px;
+}
+
+
+/* Results*/ 
+.results {
+    grid-column: 1/3;
+    grid-row: 2/3;
+    display: flex;                
+    flex-direction: column;             
+    padding: 20px;
+}
+
+/* Texto do IMC */
+#IMC-results {
+    font-size: 2rem;
+    margin-bottom: 20px;         
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+}
+#IMC-results.yellow {
+    border: 1px solid black;
+    background-color: var(--sand);
+}
+
+#IMC-results.green {
+    border: 1px solid black;
+    background-color: var(--mediumBlue);
+}
+
+#IMC-results.red {
+    border: 1px solid black;
+    background-color: var(--terracota);
+}
+
+#IMC-results.unavailable {
+    border: 1px solid var(--terracota);
+    background-color: #F4A877;
+    font-size: 2rem;
+}
+
+/* Linha com as 3 caixas coloridas + textos */
+.result-item {
+    display: flex;               
+    flex-direction: row;         
+    align-items: center;         
+    gap: 10px;                   
+    margin: 0 15px;             
+}
+.result-item p {
+    margin: 0;
+}
+
+
+.result-items-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px; 
+    font-size: 1.5rem;
+}
+
+/* Caixas coloridas */
+.color-box {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    margin-bottom: 5px;          
+}
+
+/* Cores específicas */
+#yellow {
+    background-color: var(--sand);
+    border-radius: 4px;
+}
+
+#green {
+    background-color: var(--mediumBlue);
+    border-radius: 4px;
+}
+
+#red {
+    background-color: var(--terracota);
+    border-radius: 4px;
+}
+
+ /* Water*/
+.water {
+    grid-column: 3/5;
+    grid-row: 2/3;
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.water img {
+    height: 320px;
+    width: auto;
+}
+
+/* footer*/
+footer {
+    text-align: center;
+    align-content: center;
+    border-top: 1px solid var(--darkBlue);
+    font-family: "Delius", 'Times New Roman';
+    color: black;
+    font-size: 1.15rem;
+}
