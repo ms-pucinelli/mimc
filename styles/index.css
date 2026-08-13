@@ -130,11 +130,12 @@ main {
 
 .form form {
     display: grid;
-    grid-template-columns: 200px 10% 10% 1fr 1fr;
+    grid-template-columns: minmax(220px, 280px) minmax(140px, 180px) minmax(24px, 1fr) minmax(340px, 1.35fr);
     grid-template-rows: auto auto auto;
+    column-gap: 24px;
+    row-gap: 24px;
     height: 100%;
-    padding: 0 20px;
-    margin-top: 15px;
+    padding: 28px 30px 24px;
     box-sizing: border-box;
 }
 
@@ -143,6 +144,7 @@ main {
     grid-row: 1/2;
     align-self: center;
     font-size: 2rem;
+    white-space: nowrap;
 }
 
 .form form label[for="height"] {
@@ -150,6 +152,7 @@ main {
     grid-row: 2/3;
     align-self: center;
     font-size: 2rem;
+    white-space: nowrap;
 }
 
 .form form input[name="weight"] {
@@ -157,6 +160,9 @@ main {
     grid-column: 2/3;
     grid-row: 1/2;
     align-self: center;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     font-size: 1.2rem;
     border: 2px solid var(--darkBlue);
     border-radius: 5px;
@@ -168,6 +174,9 @@ main {
     grid-column: 2/3;
     grid-row: 2/3;
     align-self: center;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     font-size: 1.2rem;
     border: 2px solid var(--darkBlue);
     border-radius: 5px;
@@ -181,12 +190,13 @@ main {
 #button {
     color: var(--VerydarkBlue);
     font-family:  "zian", 'Times New Roman';
-    grid-column: 1/2;
+    grid-column: 2/3;
     grid-row: 3/4;
     align-self: center;
+    width: 100%;
     font-size: 1.2rem;
-    padding: 5px 0;
-    margin: 15px 0 40px 0;
+    padding: 8px 12px;
+    margin: 0;
     border: 2px solid var(--darkBlue);
     border-radius: 5px;
     background-color: var(--salmon);
@@ -200,10 +210,15 @@ main {
 
 #daily-water.ready {
     font-size: 2rem;
-    grid-column: 4/6;
-    grid-row: 2/4;
-    text-align: justify;
-    padding: 20px 30px 0 30px;
+    grid-column: 4/5;
+    grid-row: 1/4;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: 0;
+    padding: 20px 28px;
+    box-sizing: border-box;
     border: 1px solid var(--darkBlue);
     background-color: #f7e6cc;
     border-radius: 4px;
@@ -320,12 +335,15 @@ footer {
 @media (max-width: 1024px) {
     #main-div { margin: 25px 40px; }
     .form form {
-        grid-template-columns: minmax(170px, auto) minmax(100px, 160px) 1fr;
-        gap: 8px 12px;
+        grid-template-columns: minmax(210px, 250px) minmax(130px, 160px) minmax(20px, 1fr) minmax(260px, 1.2fr);
+        gap: 20px;
+        padding: 24px 20px;
     }
     #daily-water.ready {
-        grid-column: 3/4;
-        padding: 15px;
+        grid-column: 4/5;
+        padding: 18px;
+        font-size: 1.65rem;
+        line-height: 1.3;
     }
 }
 
@@ -358,6 +376,7 @@ footer {
     .form form label[for="height"] {
         grid-column: 1/2;
         font-size: 1.5rem;
+        white-space: normal;
     }
     .form form input[name="weight"],
     .form form input[name="height"] {
@@ -368,6 +387,7 @@ footer {
     }
     #button {
         grid-column: 1/3;
+        width: 100%;
         margin: 10px 0 5px;
     }
     #daily-water.ready {
