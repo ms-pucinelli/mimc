@@ -1,4 +1,5 @@
-export let translations = {
+window.translationPackages = window.translationPackages || {}
+window.translationPackages.EN = {
     "header-title": "Welcome to Mimc - Your Body Mass Index Calculator",
     "language": "Language",
     "main-weight": "Enter your weight:",

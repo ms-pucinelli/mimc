@@ -16,7 +16,7 @@ body {
 }
 
 .header-footer {
-    height: 4em;
+    min-height: 4em;
     background-color:var(--blue);
 }
 
@@ -34,6 +34,8 @@ header {
 
 header h1 {
     margin: 0;
+    min-width: 0;
+    text-align: center;
 }
 
 header img {
@@ -61,14 +63,13 @@ header img {
 .dropdown-content {
     position: absolute;
     margin-left: 30px;
-    z-index: 1
+    z-index: 1;
+    display: none;
 }
 
+.dropdown:hover .dropdown-content,
 .dropdown:focus-within .dropdown-content {
     display: block;
-}
-.dropdown:not(:hover) .dropdown-content {
-    display: none;
 }
 .dropdown:hover #button-dropdown {
     background-color: var(--darkBlue);
@@ -134,6 +135,7 @@ main {
     height: 100%;
     padding: 0 20px;
     margin-top: 15px;
+    box-sizing: border-box;
 }
 
 .form form label[for="weight"] {
@@ -301,6 +303,7 @@ main {
 
 .water img {
     max-height: 250px;
+    max-width: 100%;
     width: auto;
 }
 
@@ -312,4 +315,99 @@ footer {
     font-family: "Delius", 'Times New Roman';
     color: black;
     font-size: 1.15rem;
+}
+
+@media (max-width: 1024px) {
+    #main-div { margin: 25px 40px; }
+    .form form {
+        grid-template-columns: minmax(170px, auto) minmax(100px, 160px) 1fr;
+        gap: 8px 12px;
+    }
+    #daily-water.ready {
+        grid-column: 3/4;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    header {
+        height: auto;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        padding: 12px;
+    }
+    header img { height: 42px; margin: 0; }
+    header h1 {
+        flex: 1 1 calc(100% - 60px);
+        font-size: 1.35rem;
+    }
+    .dropdown { position: relative; }
+    .dropdown button { margin-left: 0; }
+    .dropdown-content { right: 0; margin-left: 0; }
+    #main-div {
+        margin: 18px 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .form form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(90px, .7fr);
+        padding: 0 15px 15px;
+    }
+    .form form label[for="weight"],
+    .form form label[for="height"] {
+        grid-column: 1/2;
+        font-size: 1.5rem;
+    }
+    .form form input[name="weight"],
+    .form form input[name="height"] {
+        grid-column: 2/3;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    #button {
+        grid-column: 1/3;
+        margin: 10px 0 5px;
+    }
+    #daily-water.ready {
+        grid-column: 1/3;
+        grid-row: auto;
+        margin: 5px 0 0;
+        padding: 12px;
+        font-size: 1.5rem;
+        text-align: left;
+    }
+    .results { padding: 15px; }
+    #IMC-results,
+    #IMC-results.unavailable { font-size: 1.5rem; }
+    .result-items-row { font-size: 1.25rem; }
+    .result-item { margin: 0; }
+    .color-box {
+        flex: 0 0 32px;
+        width: 32px;
+        height: 32px;
+    }
+    .water { justify-content: center; }
+    .water img { max-height: 200px; }
+}
+
+@media (max-width: 374px) {
+    #main-div { margin: 12px 8px; }
+    header h1 {
+        flex-basis: 100%;
+        order: 2;
+        font-size: 1.15rem;
+    }
+    .dropdown { margin-left: auto; }
+    .form form { grid-template-columns: 1fr; }
+    .form form label[for="weight"],
+    .form form label[for="height"],
+    .form form input[name="weight"],
+    .form form input[name="height"],
+    #button,
+    #daily-water.ready {
+        grid-column: 1/2;
+        grid-row: auto;
+    }
 }

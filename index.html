@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,29 +17,29 @@
         <img src="images/people-happy-logo.png" alt="People Happy">
         <h1 data-translate-id="header-title"></h1>
         <div class="dropdown">
-            <button data-translate-id="language" id="button-dropdown"></button>
+            <button data-translate-id="language" id="button-dropdown" type="button" aria-haspopup="true"></button>
             <div class="dropdown-content">
-                <button onclick="loadTranslations('EN')">English</button>
-                <button onclick="loadTranslations('PT')">Português</button>
-                <button onclick="loadTranslations('ES')">Español</button>
+                <button type="button" data-language="EN">English</button>
+                <button type="button" data-language="PT">Português</button>
+                <button type="button" data-language="ES">Español</button>
             </div>
         </div>
     </header>
     <main>
         <div id="main-div"> <!--div principal-->
             <div class="form"> <!--div formulário-->
-                <form action="#"> 
+                <form novalidate>
                     <label data-translate-id="main-weight" for="weight"></label>
-                    <input name="weight" type="number" placeholder="kg" >
+                    <input id="weight" name="weight" type="number" min="0" step="any" inputmode="decimal" placeholder="kg">
                     <label data-translate-id="main-height" for="height"></label>
-                    <input name="height" type="number" placeholder="cm" >
+                    <input id="height" name="height" type="number" min="0" step="any" inputmode="decimal" placeholder="cm">
                     <button data-translate-id="main-calculate" id="button" type="submit"></button>
                     <p id="daily-water"></p>
 
                 </form>
             </div>
             <div class="results">
-                <div id="IMC-results" class=""></div>
+                <div id="IMC-results" class="" aria-live="polite"></div>
             
                 <div class="result-items-row">
                     <div class="result-item">
@@ -66,6 +66,9 @@
     <footer class="header-footer">
         <p>&#169; 2025 - Created by Pamela Gomes </p>
     </footer>
+    <script src="./scripts/portuguese.js"></script>
+    <script src="./scripts/english.js"></script>
+    <script src="./scripts/spanish.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 </html>

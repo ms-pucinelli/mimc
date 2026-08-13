@@ -1,112 +1,105 @@
-function withTranslation(language, translationID, lambda) {
-    let loadingLanguagePackage
+const languagePackages = window.translationPackages
+const documentLanguages = { PT: "pt-BR", EN: "en", ES: "es" }
+const resultClasses = ["yellow", "green", "red", "unavailable"]
 
-    if (language === "PT"){
-        loadingLanguagePackage = import ("./portuguese.js")
-    }
+let currentLanguage = getSupportedLanguage(sessionStorage.getItem("language"))
+let currentTranslations
+let latestCalculation = null
 
-    else if (language === "EN"){
-        loadingLanguagePackage = import ("./english.js")
-    }
+const form = document.querySelector(".form form")
+const imcResults = document.getElementById("IMC-results")
+const dailyWater = document.getElementById("daily-water")
 
-    else {
-        loadingLanguagePackage = import ("./spanish.js")
-    }
-
-    loadingLanguagePackage.then(languagepackage => {
-        lambda(languagepackage.translations[translationID])
-    })
+function getSupportedLanguage(language) {
+    return Object.hasOwn(languagePackages, language) ? language : "PT"
 }
 
 function loadTranslations(language) {
-    sessionStorage.setItem('language', language)
+    const requestedLanguage = getSupportedLanguage(language)
+    currentLanguage = requestedLanguage
+    sessionStorage.setItem("language", currentLanguage)
+    currentTranslations = languagePackages[currentLanguage]
+    document.documentElement.lang = documentLanguages[currentLanguage]
 
-    let elementsWithTranslationID = document.querySelectorAll("[data-translate-id]")
-
-    elementsWithTranslationID.forEach(element =>{
-        let translationID = element.getAttribute("data-translate-id")
-        withTranslation(language, translationID, function( translatedText) {
-            element.textContent = translatedText
-        })
+    document.querySelectorAll("[data-translate-id]").forEach(element => {
+        element.textContent = currentTranslations[element.dataset.translateId]
     })
+
+    renderCalculation()
 }
 
-let language = sessionStorage.getItem('language') || 'PT'
-loadTranslations(language)
-
-let parametros = new URLSearchParams(window.location.search) // Aqui busco o que contém na URL
-
-function calcularImc(peso, altura) { // Função criada para calcular o meu IMC
-    let alturaEmMetros = altura / 100;
-    let alturaAoQuadrado = alturaEmMetros * alturaEmMetros;
-    let imc = peso / alturaAoQuadrado
-    return imc
+function calcularImc(peso, altura) {
+    const alturaEmMetros = altura / 100
+    return peso / (alturaEmMetros * alturaEmMetros)
 }
 
-function calcularAgua(peso) { // Função criada para calcular o que devo beber de agua no dia
-    let aguaPorDia = (peso * 35) / 1000
-    return aguaPorDia
+function calcularAgua(peso) {
+    return (peso * 35) / 1000
 }
 
 function getImcColor(imc) {
-    if(imc >= 25) {
-        return "red"
-    } 
-    else if(imc >= 18) {
-        return "green"
-    }
-    else {
-        return "yellow"
-    }
+    if (imc >= 25) return "red"
+    if (imc >= 18.5) return "green"
+    return "yellow"
 }
 
 function getMinimumIMC(imc, peso) {
-  let minimumIMC = (peso * 18) /imc
-    return minimumIMC
+    return (peso * 18.5) / imc
 }
 
-function getMaximumIMC(imc, peso){
-   let maximumIMC = (peso * 24.99) /imc
-    return maximumIMC
+function getMaximumIMC(imc, peso) {
+    return (peso * 25) / imc
 }
 
-let pesoString = parametros.get("weight") // Aqui pego da URL o valor do tipo de dao, ou seja, o objeto e converto em uma Int
-let peso = parseInt(pesoString)
-let alturaString = parametros.get("height")
-let altura = parseInt(alturaString)
+function renderCalculation() {
+    if (!currentTranslations || !latestCalculation) return
 
-let imc = calcularImc(peso, altura) // Aqui passo os parâmentros anteriores para a minha função
-let aguaPorDia = calcularAgua (peso)
-let minimumIMC = getMinimumIMC(imc, peso)
-let maximumIMC = getMaximumIMC(imc, peso) 
+    imcResults.classList.remove(...resultClasses)
+    dailyWater.classList.add("ready")
 
-if(parametros.has("weight") && parametros.has("height")) { // Aqui eu condiciono para que apenas apareça a mensagem quando tiver os valores na URL.
-    let imcResults = document.getElementById("IMC-results") // Aqui eu digo pego o meu elemento do HTML e mudo o seu conteudo (IMC)
-    if(Number.isNaN(imc)) {
-        withTranslation(language, "imc-results-error", translatedText => {
-            imcResults.textContent = translatedText
-        })
-        imcResults.classList.add("unavailable") 
-    }
-    
-    else {
-        imcResults.classList.add(getImcColor(imc))
-        withTranslation(language, "imc-results-success", translatedLambda => {
-            imcResults.textContent = translatedLambda(imc, minimumIMC, maximumIMC)
-        })
-    }
-    
-    let dailyWater = document.getElementById("daily-water") // Aqui eu digo pego o meu elemento do HTML e mudo o seu conteudo (agua)
-    dailyWater.classList.add("ready") // Aqui eu adiciono uma classe para mudar o CSS ao mostrar o resultado do daily-water
-    if(Number.isNaN(imc)) {
-        withTranslation(language, "daily-water-error-tip", translatedText =>  {
-            dailyWater.textContent = translatedText
-        })
+    if (!latestCalculation.valid) {
+        imcResults.textContent = currentTranslations["imc-results-error"]
+        imcResults.classList.add("unavailable")
+        dailyWater.textContent = currentTranslations["daily-water-error-tip"]
+        return
     }
 
-    else {
-        withTranslation(language, "daily-water-success", translatedLambda =>{
-            dailyWater.textContent = translatedLambda(aguaPorDia)
-        }) 
+    const { imc, aguaPorDia, minimumIMC, maximumIMC } = latestCalculation
+    imcResults.classList.add(getImcColor(imc))
+    imcResults.textContent = currentTranslations["imc-results-success"](imc, minimumIMC, maximumIMC)
+    dailyWater.textContent = currentTranslations["daily-water-success"](aguaPorDia)
 }
-}
+
+form.addEventListener("submit", event => {
+    event.preventDefault()
+    const weightValue = form.elements.weight.value.trim()
+    const heightValue = form.elements.height.value.trim()
+    const peso = Number(weightValue)
+    const altura = Number(heightValue)
+    const valid = weightValue !== "" && heightValue !== "" &&
+        Number.isFinite(peso) && Number.isFinite(altura) && peso > 0 && altura > 0
+
+    if (!valid) {
+        latestCalculation = { valid: false }
+        renderCalculation()
+        return
+    }
+
+    const imc = calcularImc(peso, altura)
+    latestCalculation = {
+        valid: Number.isFinite(imc) && imc > 0,
+        imc,
+        aguaPorDia: calcularAgua(peso),
+        minimumIMC: getMinimumIMC(imc, peso),
+        maximumIMC: getMaximumIMC(imc, peso)
+    }
+    renderCalculation()
+})
+
+document.querySelectorAll("[data-language]").forEach(button => {
+    button.addEventListener("click", () => {
+        loadTranslations(button.dataset.language)
+    })
+})
+
+loadTranslations(currentLanguage)
